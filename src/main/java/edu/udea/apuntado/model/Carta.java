@@ -77,6 +77,7 @@ public class Carta {
         pnl.add(lblCarta);
     }
 
+    
     public ImageIcon cargarImagen(String nombreImagen) {
     return new ImageIcon(getClass().getResource("/static/" + nombreImagen));
     }

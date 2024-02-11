@@ -31,6 +31,8 @@
                       <Component id="btnRepartir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnVerificar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnCalcularPuntaje" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="154" max="32767" attributes="0"/>
@@ -44,6 +46,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnRepartir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnVerificar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCalcularPuntaje" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="tpJugadores" min="-2" pref="203" max="-2" attributes="0"/>
@@ -139,5 +142,10 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="btnCalcularPuntaje">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Calcular Puntaje"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

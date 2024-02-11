@@ -37,6 +37,7 @@ public class FrmJuego extends JFrame {
         tpJugadores = new javax.swing.JTabbedPane();
         pnlJugador1 = new javax.swing.JPanel();
         pnlJugador2 = new javax.swing.JPanel();
+        btnCalcularPuntaje = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,6 +87,8 @@ public class FrmJuego extends JFrame {
 
         tpJugadores.addTab("Raúl Vidal", pnlJugador2);
 
+        btnCalcularPuntaje.setText("Calcular Puntaje");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,7 +100,9 @@ public class FrmJuego extends JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRepartir)
                         .addGap(18, 18, 18)
-                        .addComponent(btnVerificar)))
+                        .addComponent(btnVerificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCalcularPuntaje)))
                 .addContainerGap(154, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -106,7 +111,8 @@ public class FrmJuego extends JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRepartir)
-                    .addComponent(btnVerificar))
+                    .addComponent(btnVerificar)
+                    .addComponent(btnCalcularPuntaje))
                 .addGap(18, 18, 18)
                 .addComponent(tpJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -132,6 +138,7 @@ public class FrmJuego extends JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCalcularPuntaje;
     private javax.swing.JButton btnRepartir;
     private javax.swing.JButton btnVerificar;
     private javax.swing.JPanel pnlJugador1;
