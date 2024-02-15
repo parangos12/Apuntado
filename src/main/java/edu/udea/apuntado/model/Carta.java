@@ -22,14 +22,15 @@ public class Carta {
     * 13= K de Trebol, 26= K de Pica, 39= K de Corazon, 52= K de Diamante 
     * */
     private int indice;
-    public static List<Integer> randomNumbers=new ArrayList<>();
+    public static List<Integer> baraja=new ArrayList<>();
     
-    //El número de la carta es generado aleatoriamente, pero tenemos que asegurar que no se repita.
+    //El número de la carta es generado aleatoriamente, pero tenemos que asegurar que no se repita la carta
+    //a los distintos jugados. Ej: No se le puede entregar la carta 7 de Corazones a los 2 jugadores, solo hay UNA.
     public Carta(Random r) {
         while(true){
         indice = r.nextInt(52) + 1;
-        if(!randomNumbers.contains(indice)) {
-            randomNumbers.add(indice);
+        if(!baraja.contains(indice)) {
+            baraja.add(indice);
             break;
         }}
     }
@@ -81,7 +82,10 @@ public class Carta {
         return this.indice;
     }
     
-    
+    public static void reiniciarBaraja(){
+        baraja.clear();
+    }
+
     public ImageIcon cargarImagen(String nombreImagen) {
     return new ImageIcon(getClass().getResource("/static/" + nombreImagen));
     }

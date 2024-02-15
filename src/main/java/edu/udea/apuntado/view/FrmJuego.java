@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package edu.udea.apuntado.view;
+import edu.udea.apuntado.model.Carta;
 import edu.udea.apuntado.model.Jugador;
 import javax.swing.*;
 import java.awt.*;
@@ -142,6 +143,7 @@ public class FrmJuego extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRepartirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepartirActionPerformed
+        Carta.reiniciarBaraja();
         for(int i=0; i<jugadores.length;i++) 
             jugadores[i].repartir(); 
         jugadores[0].mostrar(pnlJugador1, true); 

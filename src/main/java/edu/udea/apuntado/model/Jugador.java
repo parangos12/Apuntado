@@ -35,11 +35,11 @@ public class Jugador {
 
     public void repartir() {
         //Instanciar las 10 cartas
+        puntosJugador=0;
         cartas = new Carta[10];
         for (int i = 0; i < 10; i++) {
             cartas[i] = new Carta(r);
         }
-        reiniciarBaraja();
     }
 
     public void mostrar(JPanel pnl, boolean tapada) {
@@ -163,12 +163,6 @@ public class Jugador {
         indicesUsados.forEach((indice)->System.out.print(indice+"-"));
         return puntosJugador;
         
-    }
-    
-    
-    private void reiniciarBaraja() {
-        Carta.randomNumbers = new ArrayList<>();
-        puntosJugador=0;
     }
 
 }
