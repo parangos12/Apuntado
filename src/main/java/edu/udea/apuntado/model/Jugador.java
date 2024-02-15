@@ -7,9 +7,11 @@ package edu.udea.apuntado.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import javax.swing.JPanel;
 
 /**
@@ -20,14 +22,15 @@ public class Jugador {
 
     private Random r;
     private Carta[] cartas;
-    private Map<String, Integer> frecuenciaCartas;
+    private Map<String, List<Integer>> frecuenciaCartas;
     private Integer puntosJugador;
-    private List<Integer> cartasUsadasEscalera;
-    private Map<Integer,Integer> cartasUsadasGrupos;
+    private List<Integer> indicesCartasEscalera;
+    private List<Integer> indicesCartasGrupo;
 
     public Jugador() {
         // Iniciar el generador de numeros aleatorios
         r = new Random();
+        puntosJugador=0;
     }
 
     public void repartir() {
@@ -52,26 +55,22 @@ public class Jugador {
 
     //MEJORAR ESTO DE TERNAS,CUARTAS!!! CON UN SIMPLE FOR Y GETuBDUCE, se mira en q rango esta y se suma.
     public String obtenerFiguras() {
-        cartasUsadasGrupos=new HashMap<>();
+        indicesCartasGrupo=new ArrayList<>();
         frecuenciaCartas = new HashMap<>();
         contarConcurrencias(); //Contamos las concurrencias de las cartas.
 
         String mensaje = "";
-        for (Map.Entry<String, Integer> carta : frecuenciaCartas.entrySet()) {
-            Integer frecuencia = carta.getValue();
+        for (Map.Entry<String, List<Integer>> carta : frecuenciaCartas.entrySet()) {
+            Integer frecuencia = carta.getValue().get(0); //El indice 0 siempre será la que contenga la frecuencia.
             if (frecuencia >= 3) {
                 String nombreCarta = carta.getKey();
                 mensaje += Figura.values()[frecuencia].name() + " de " + nombreCarta + "\n";
-                Integer frecuenciaActual=cartasUsadasGrupos.getOrDefault(NombreCarta.valueOf(nombreCarta).getValorCarta(), 0);
-                frecuenciaActual+=frecuencia;
-                cartasUsadasGrupos.put(NombreCarta.valueOf(nombreCarta).getValorCarta(), frecuenciaActual);
+                indicesCartasGrupo.addAll(carta.getValue().subList(1, carta.getValue().size()));
             }
         }
-        System.out.println("CARTAS USADAS EN GRUPOS");
-        cartasUsadasGrupos.forEach((k,v)->System.out.println("k:"+k+" v:"+v));
-        System.out.println("===================================================================");
         mensaje+=obtenerEscaleras();         //Posible escalera
-
+        
+        
         if (mensaje.equals("")) {
             mensaje = "No hay figuras";
         } else {
@@ -82,21 +81,27 @@ public class Jugador {
     }
     
 
-    public Map<String, Integer> contarConcurrencias() {
+    public Map<String, List<Integer>> contarConcurrencias() {
+        frecuenciaCartas=new HashMap<>();
         for (Carta carta : cartas) {
             String nombreCarta = carta.obtenerNombre().name();
-            Integer frecuenciaCarta = frecuenciaCartas.getOrDefault(nombreCarta, 0) + 1;
-            frecuenciaCartas.put(nombreCarta, frecuenciaCarta);
+            List<Integer> listaCarta = frecuenciaCartas.getOrDefault(nombreCarta,new ArrayList<>(Arrays.asList(0)));
+            Integer frecuencia=listaCarta.isEmpty()?1:(listaCarta.get(0)+1);
+            Integer indice=carta.obtenerIndice();
+            listaCarta.set(0,frecuencia);
+            listaCarta.add(indice);
+            frecuenciaCartas.put(nombreCarta, listaCarta);
         }
         return frecuenciaCartas;
     }
 
     public String obtenerEscaleras() {
-        cartasUsadasEscalera=new ArrayList<>();
+        indicesCartasEscalera=new ArrayList<>();
         Map<PintaCarta, List<NombreCarta>> agrupamientosPorPinta = agruparCartasPorPinta();
         String message = "";
         for (Map.Entry<PintaCarta, List<NombreCarta>> entry : agrupamientosPorPinta.entrySet()) {
             PintaCarta pintaCarta = entry.getKey();
+            Integer indicePinta=pintaCarta.getSumarIndice();
             List<NombreCarta> agrupadosXPinta = entry.getValue();
             if (agrupadosXPinta.size() >= 3) {
                 agrupadosXPinta.sort((vl1, vl2) -> vl1.getValorOrden()- vl2.getValorOrden());
@@ -117,15 +122,15 @@ public class Jugador {
                         //TODO: POINT TO THE NOT COUNTED CARD.
                     }
                     if(sumTemp>=3) {
-                        if(!finalEscalera.containsAll(escaleraTest)) finalEscalera.addAll(escaleraTest);
+                        if(!finalEscalera.containsAll(escaleraTest)) {
+                            finalEscalera.addAll(escaleraTest);
+                        }
                         if(!message.contains("ESCALERA de " + pintaCarta.name()+"\n")){
                             message += "ESCALERA de " + pintaCarta.name()+"\n";
                         }
                     }
                 }
-                //Compruebe que si son las escaleras imprimiendo en consola...
-                System.out.println("Escalera: "+finalEscalera.toString());
-                cartasUsadasEscalera.addAll(finalEscalera);
+                indicesCartasEscalera.addAll(finalEscalera.stream().map((card)->card+indicePinta).toList());
             }
         }
         obtenerPuntosJugador();
@@ -144,53 +149,26 @@ public class Jugador {
         return agrupamientosPorPinta;
     }
     
-    private Integer obtenerPuntosJugador(){
-        //Agrupar por valor carta
-        Integer totalSuma=0;
-        Map<Integer,Integer> agrupacionPorValor=new HashMap<>();
-        for (int i = 0; i < cartas.length; i++) {
-            Carta carta = cartas[i];
-            Integer valorCarta=carta.obtenerNombre().getValorCarta();
-            Integer frecuencia=agrupacionPorValor.getOrDefault(valorCarta,0);
-            frecuencia++;
-            agrupacionPorValor.put(valorCarta, frecuencia);
-        }
-        //System.out.println("ANTES DE ESCALERA");
-        //agrupacionPorValor.forEach((k,v)->System.out.println("k:"+k+" v:"+v));
-        for (Map.Entry<Integer, Integer> entry : cartasUsadasGrupos.entrySet()) {
-            Integer valorCarta= entry.getKey();
-            Integer frecuenciaCarta = entry.getValue();
-            Integer nuevaFrecuencia=agrupacionPorValor.get(valorCarta)-frecuenciaCarta;
-            agrupacionPorValor.put(valorCarta, nuevaFrecuencia);
-        }
+    public Integer obtenerPuntosJugador(){
+        puntosJugador=0;
+        Set<Integer> indicesUsados=new HashSet<>();
+        indicesUsados.addAll(indicesCartasGrupo);
+        indicesUsados.addAll(indicesCartasEscalera);
+
+        for (int i = 0; i < cartas.length; i++) 
+            if(!indicesUsados.contains(cartas[i].obtenerIndice())) 
+                puntosJugador+=cartas[i].obtenerNombre().getValorCarta();
         
-        //Restamos las cartas usadas en los demás grupos (Si ocurre q no se puede restar más, no hay problema, ya que 
-        //las cartas NO son mutuamente excluyentes.
-        for (int i = 0; i < cartasUsadasEscalera.size(); i++) {
-            Integer cartaOrden = cartasUsadasEscalera.get(i);
-            Integer valorCarta=NombreCarta.getPuntajePorOrden(cartaOrden);
-            Integer nuevaFrecuencia=agrupacionPorValor.get(valorCarta)-1;
-            agrupacionPorValor.put(valorCarta, nuevaFrecuencia);
-        }
-        //System.out.println("DESPUES DE ESCALERA");
-        //agrupacionPorValor.forEach((k,v)->System.out.println("k:"+k+" v:"+v));
+        System.out.println("INDICES USADOS: ");
+        indicesUsados.forEach((indice)->System.out.print(indice+"-"));
+        return puntosJugador;
         
-        //Sumamos los valores restantes de las cartas que no fueron seleccionadas.
-        for (Map.Entry<Integer, Integer> entry : agrupacionPorValor.entrySet()) {
-            Integer valorCarta = entry.getKey();
-            Integer frecuencia = entry.getValue();
-            if(frecuencia>0) totalSuma+=valorCarta*frecuencia;
-        }
-        System.out.println("Agrupaciones luego de restas: ");
-        agrupacionPorValor.forEach((k,v)->System.out.println("k:"+k+" v:"+v));
-        System.out.println("Total suma: "+totalSuma);
-        return totalSuma;
-        //Recorremos las figuras que SI son escaleras
     }
     
     
     private void reiniciarBaraja() {
         Carta.randomNumbers = new ArrayList<>();
+        puntosJugador=0;
     }
 
 }

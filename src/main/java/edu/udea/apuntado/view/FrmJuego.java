@@ -12,13 +12,28 @@ import java.awt.*;
  * @author pedro_arango
  */
 public class FrmJuego extends JFrame {
-    Jugador[] jugadores=new Jugador[2];
+    
+    private static final int NUMERO_DE_JUGADORES=2;
+    private boolean estaJuegoIniciado;
+    private boolean estaJugador1Verificado;
+    private boolean estaJugador2Verificado;
+    
+        
+    
+    private Jugador[] jugadores=new Jugador[NUMERO_DE_JUGADORES];
     /**
      * Creates new form FrmJuego
      */
     public FrmJuego() {
         initComponents();
+        iniciarJugadores();
+        estaJuegoIniciado=false;
+        estaJugador1Verificado=false;
+        estaJugador2Verificado=false;
         
+    }
+    
+    private void iniciarJugadores(){
         for(int i=0; i<jugadores.length;i++) 
             jugadores[i]=new Jugador();
     }
@@ -88,6 +103,11 @@ public class FrmJuego extends JFrame {
         tpJugadores.addTab("Raúl Vidal", pnlJugador2);
 
         btnCalcularPuntaje.setText("Calcular Puntaje");
+        btnCalcularPuntaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularPuntajeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,14 +144,46 @@ public class FrmJuego extends JFrame {
     private void btnRepartirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepartirActionPerformed
         for(int i=0; i<jugadores.length;i++) 
             jugadores[i].repartir(); 
-        jugadores[0].mostrar(pnlJugador1, false); 
-        jugadores[1].mostrar(pnlJugador2, false);
+        jugadores[0].mostrar(pnlJugador1, true); 
+        jugadores[1].mostrar(pnlJugador2, true);
+        estaJuegoIniciado=true;
+        estaJugador1Verificado=false;
+        estaJugador2Verificado=false;
     }//GEN-LAST:event_btnRepartirActionPerformed
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         int pestaña=tpJugadores.getSelectedIndex(); 
+                
+        if(!estaJuegoIniciado)
+            mostrarAlerta("Avispese", "Que le pasa webon como va a verificar sin haber repartido");   
+        
+        if(pestaña==0){
+            estaJugador1Verificado=true;
+            jugadores[0].mostrar(pnlJugador1, false); 
+        }else if(pestaña==1){
+            estaJugador2Verificado=true;
+            jugadores[1].mostrar(pnlJugador2, false);}
+        
         JOptionPane.showMessageDialog(new JFrame(), jugadores[pestaña].obtenerFiguras());
     }//GEN-LAST:event_btnVerificarActionPerformed
+
+    private void btnCalcularPuntajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularPuntajeActionPerformed
+        int pestaña=tpJugadores.getSelectedIndex();
+        
+        if(!estaJuegoIniciado)
+            mostrarAlerta("Pongase las pilas", "Don atembado quiere obtener puntos sin haber repartido");   
+
+        
+        if(pestaña==0 && !estaJugador1Verificado ||pestaña==1 && !estaJugador2Verificado ){
+            mostrarAlerta("Esa marijuana te tiene mal", "No sabía que eras brujo para saber el puntaje sin verificar las cartas");
+        }else{
+            JOptionPane.showMessageDialog(new JFrame(), jugadores[pestaña].obtenerPuntosJugador());
+        }
+
+    }//GEN-LAST:event_btnCalcularPuntajeActionPerformed
+
+    private void mostrarAlerta(String title, String message) {
+    JOptionPane.showMessageDialog(null, message, title, JOptionPane.WARNING_MESSAGE);}
 
     /**
      * @param args the command line arguments
