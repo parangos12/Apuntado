@@ -77,6 +77,10 @@ public class Carta {
         pnl.add(lblCarta);
     }
 
+    public int obtenerIndice(){
+        return this.indice;
+    }
+    
     
     public ImageIcon cargarImagen(String nombreImagen) {
     return new ImageIcon(getClass().getResource("/static/" + nombreImagen));

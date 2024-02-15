@@ -4,6 +4,7 @@ edu\udea\apuntado\Apuntado$1.class
 edu\udea\apuntado\model\Carta.class
 edu\udea\apuntado\Apuntado.class
 edu\udea\apuntado\model\Figura.class
+edu\udea\apuntado\utils\Node.class
 edu\udea\apuntado\view\FrmJuego.class
 edu\udea\apuntado\view\FrmJuego$1.class
 edu\udea\apuntado\model\Jugador.class
