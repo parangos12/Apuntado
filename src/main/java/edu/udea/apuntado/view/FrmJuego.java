@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package edu.udea.apuntado.view;
 import edu.udea.apuntado.model.Carta;
 import edu.udea.apuntado.model.Jugador;
@@ -9,8 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *
- * @author pedro_arango
+ * @author Pedro Arango Sánchez
+ * @author David Andrés Montoya Castaño
+ * @course Técnicas de Programación y Laboratorio [2554307 - G01] 
  */
 public class FrmJuego extends JFrame {
     
@@ -56,6 +53,9 @@ public class FrmJuego extends JFrame {
         btnCalcularPuntaje = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Apuntado");
+        setLocationByPlatform(true);
+        setResizable(false);
 
         btnRepartir.setText("Repartir");
         btnRepartir.addActionListener(new java.awt.event.ActionListener() {
@@ -64,46 +64,48 @@ public class FrmJuego extends JFrame {
             }
         });
 
-        btnVerificar.setText("Verificar");
+        btnVerificar.setText("Voltear cartas");
         btnVerificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerificarActionPerformed(evt);
             }
         });
 
-        pnlJugador1.setBackground(new java.awt.Color(102, 255, 51));
+        tpJugadores.setMinimumSize(new java.awt.Dimension(160, 65));
+
+        pnlJugador1.setBackground(new java.awt.Color(0, 145, 63));
         pnlJugador1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout pnlJugador1Layout = new javax.swing.GroupLayout(pnlJugador1);
         pnlJugador1.setLayout(pnlJugador1Layout);
         pnlJugador1Layout.setHorizontalGroup(
             pnlJugador1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 682, Short.MAX_VALUE)
+            .addGap(0, 636, Short.MAX_VALUE)
         );
         pnlJugador1Layout.setVerticalGroup(
             pnlJugador1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
+            .addGap(0, 127, Short.MAX_VALUE)
         );
 
-        tpJugadores.addTab("Martín Estrada Contreras", pnlJugador1);
+        tpJugadores.addTab("Pedro Arango", pnlJugador1);
 
-        pnlJugador2.setBackground(new java.awt.Color(102, 255, 51));
+        pnlJugador2.setBackground(new java.awt.Color(0, 145, 63));
         pnlJugador2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout pnlJugador2Layout = new javax.swing.GroupLayout(pnlJugador2);
         pnlJugador2.setLayout(pnlJugador2Layout);
         pnlJugador2Layout.setHorizontalGroup(
             pnlJugador2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 682, Short.MAX_VALUE)
+            .addGap(0, 636, Short.MAX_VALUE)
         );
         pnlJugador2Layout.setVerticalGroup(
             pnlJugador2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 166, Short.MAX_VALUE)
+            .addGap(0, 127, Short.MAX_VALUE)
         );
 
-        tpJugadores.addTab("Raúl Vidal", pnlJugador2);
+        tpJugadores.addTab("David Montoya", pnlJugador2);
 
-        btnCalcularPuntaje.setText("Calcular Puntaje");
+        btnCalcularPuntaje.setText("Obtener puntaje");
         btnCalcularPuntaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCalcularPuntajeActionPerformed(evt);
@@ -115,28 +117,28 @@ public class FrmJuego extends JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tpJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tpJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRepartir)
                         .addGap(18, 18, 18)
                         .addComponent(btnVerificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCalcularPuntaje)))
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRepartir)
                     .addComponent(btnVerificar)
                     .addComponent(btnCalcularPuntaje))
                 .addGap(18, 18, 18)
-                .addComponent(tpJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(tpJugadores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -157,7 +159,7 @@ public class FrmJuego extends JFrame {
         int pestaña=tpJugadores.getSelectedIndex(); 
                 
         if(!estaJuegoIniciado)
-            mostrarAlerta("Avispese", "Que le pasa webon como va a verificar sin haber repartido");   
+            mostrarAlerta("Avispate pues", "Como difícil ver las cartas sin sacarlas de la baraja... reparta y que gracias!");   
         
         if(pestaña==0){
             estaJugador1Verificado=true;
@@ -173,11 +175,10 @@ public class FrmJuego extends JFrame {
         int pestaña=tpJugadores.getSelectedIndex();
         
         if(!estaJuegoIniciado)
-            mostrarAlerta("Pongase las pilas", "Don atembado quiere obtener puntos sin haber repartido");   
+            mostrarAlerta("Póngase las pilas", "Don atembado quiere obtener puntos sin haber repartido");   
 
-        
         if(pestaña==0 && !estaJugador1Verificado ||pestaña==1 && !estaJugador2Verificado ){
-            mostrarAlerta("Esa marijuana te tiene mal", "No sabía que eras brujo para saber el puntaje sin verificar las cartas");
+            mostrarAlerta("Cambie de dealer por favor", "No sabía que sos bruj@ para saber el puntaje sin voltear las cartas");
         }else{
             JOptionPane.showMessageDialog(new JFrame(), jugadores[pestaña].obtenerPuntosJugador());
         }

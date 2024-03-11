@@ -1,15 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package edu.udea.apuntado.model;
 
 import java.util.*;
 import javax.swing.*;
 
 /**
- *
- * @author pedro_arango
+ * @author Pedro Arango Sánchez
+ * @author David Andrés Montoya Castaño
+ * @course Técnicas de Programación y Laboratorio [2554307 - G01] 
  */
 public class Carta {
 

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
- */
 package edu.udea.apuntado.model;
 
 import java.util.ArrayList;
@@ -9,8 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
- * @author pedro_arango
+ * @author Pedro Arango Sánchez
+ * @author David Andrés Montoya Castaño
+ * @course Técnicas de Programación y Laboratorio [2554307 - G01] 
  */
 public enum NombreCarta { 
     NINGUNO(0,0,0), 

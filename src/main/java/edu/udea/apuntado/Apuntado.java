@@ -1,15 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package edu.udea.apuntado;
 
 import edu.udea.apuntado.view.FrmJuego;
 import java.awt.EventQueue;
 
 /**
- *
- * @author pedro_arango
+ * @author Pedro Arango Sánchez
+ * @author David Andrés Montoya Castaño
+ * @course Técnicas de Programación y Laboratorio [2554307 - G01] 
  */
 public class Apuntado {
 
